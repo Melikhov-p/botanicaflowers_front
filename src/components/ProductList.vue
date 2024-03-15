@@ -5,7 +5,7 @@ defineProps({
 })
 </script>
 <template>
-      <div class="grid grid-cols-4 gap-5 mt-8">
+      <div class="grid grid-cols-4 gap-5 mt-8" v-auto-animate>
         <ProductCard
           v-for="product in products"
           :key="product.id"
@@ -17,7 +17,8 @@ defineProps({
           :discount="product.discount_percent"
           :total_price="product.total_price"
           :is-liked="product.isLiked"
-          :on-click-like="onClickLike"/>
+          :on-click-like="onClickLike"
+          />
 
       </div>
 

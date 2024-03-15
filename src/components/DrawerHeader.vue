@@ -1,5 +1,5 @@
 <script setup>
-import { inject } from 'vue'
+import { inject, ref } from 'vue'
 
 const { closeDrawer } = inject('profileDrawerActions')
 
@@ -8,6 +8,9 @@ defineProps({
   login: Function,
   logout: Function
 })
+
+const phone = ref('')
+const password = ref('')
 </script>
 
 <template>
@@ -33,8 +36,11 @@ defineProps({
       <h2 class="font-bold text-2xl">{{ client.first_name }} {{ client.last_name }}</h2>
       <h2 class="text-slate-400">{{ client.phone }}</h2>
     </div>
-    <div v-else>
-      <div class="border border-rose-400 rounded mt-10 flex items-center justify-center py-5 hover:bg-rose-400 hover:text-white hover:cursor-pointer" @click="login">
+    <div v-else class="flex flex-col">
+      <input type="text" class="outline-0 border border-rose-400 rounded mt-2.5 h-10 pl-2" placeholder="Номер телефона" v-model="phone"/>
+      <input type="password" class="outline-0 border border-rose-400 rounded mt-2.5 h-10 pl-2" placeholder="Пароль" v-model="password"/>
+      <span class="self-center">Нет аккаунта? <a class="text-rose-400 hover:cursor-pointer hover:underline">Создать</a></span>
+      <div class="border border-rose-400 rounded mt-5 flex items-center justify-center py-5 hover:bg-rose-400 hover:text-white hover:cursor-pointer" @click="login(phone, password)">
         Войти
       </div>
     </div>

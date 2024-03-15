@@ -4,9 +4,11 @@ import ProductList from '@/components/ProductList.vue'
 import DrawerComp from '@/components/DrawerComp.vue'
 import axios from 'axios'
 import { onMounted, provide, reactive, ref, watch } from 'vue'
+import ModalContactsComp from '@/components/ModalContactsComp.vue'
 
 
 const DrawerOpen = ref(false)
+const ModalContacts = ref(false)
 
 const closeDrawer = () => {
   DrawerOpen.value = false
@@ -14,7 +16,12 @@ const closeDrawer = () => {
 const openDrawer = () => {
   DrawerOpen.value = true
 }
-
+const openModalContacts = () => {
+  ModalContacts.value = true
+}
+const closeModalContacts = () => {
+  ModalContacts.value = false
+}
 
 const products = ref([])
 const filters = reactive({
@@ -36,10 +43,10 @@ const onChangeCategoryFilter = event => {  // Изменение категор�
   filters.categoryFilter = event.target.value
 }
 
-function AuthClient()
-{
+
+function AuthClient(phone, password) {
   let token = localStorage.getItem('token')
-  if (token){
+  if (token) {
     console.log(token)
     axios.get('http://localhost:8000/api/clients/', {
       'headers': {
@@ -47,29 +54,42 @@ function AuthClient()
       }
     }).then(resp => client.value = resp.data[0])
     location.reload()
-  }
-  else{
+  } else {
     console.log('no token')
-    axios.post('http://localhost:8000/api/login/', {'username': '89803244703', 'password': 'pirozhok'}).then(resp => {
+    console.log({ 'username': phone, 'password': password })
+    axios.post('http://localhost:8000/api/login/', { 'username': phone, 'password': password }).then(resp => {
       token = resp.data.token
       localStorage.setItem('token', token)
       axios.get('http://localhost:8000/api/clients/', {
-      'headers': {
-        'Authorization': 'Token ' + token
-      }
-    }).then(resp => client.value = resp.data[0])
+        'headers': {
+          'Authorization': 'Token ' + token
+        }
+      }).then(resp => client.value = resp.data[0])
       location.reload()
     })
   }
 }
 
-function getClient(){
-  if (localStorage.getItem('token')){
+function getClient() {
+  if (localStorage.getItem('token')) {
+    console.log('loading local client')
     axios.get('http://localhost:8000/api/clients/', {
       'headers': {
         'Authorization': 'Token ' + localStorage.getItem('token')
       }
-    }).then(resp => client.value = resp.data[0])
+    }).then(resp => {
+      if ('error' in resp.data) {
+        localStorage.removeItem('token')
+        console.log(resp.data)
+      } else {
+        client.value = resp.data[0]
+      }
+    }).catch(function(error) {
+      if (error.response.status === 401) {
+        localStorage.removeItem('token')
+        console.log('token expired')
+      }
+    })
   }
 }
 
@@ -97,6 +117,7 @@ const fetchProducts = async () => {  // Запрос всех товаров
     })
 
     products.value = data
+    await fetchLikes()
   } catch (e) {
     console.log(e)
   }
@@ -166,14 +187,15 @@ provide('profileDrawerActions', {
 <template>
   <div class="h-screen">
 
+    <ModalContactsComp :close-modal-contacts="closeModalContacts" v-if="ModalContacts"/>
     <DrawerComp v-if="DrawerOpen" @close-drawer="closeDrawer" :liked_products="products.filter(product => product.isLiked)" :client="client" :login="AuthClient" :logout="LogOut" />
 
-    <HeaderComp @open-drawer="openDrawer" />
+    <HeaderComp @open-drawer="openDrawer" :open-modal-contacts="openModalContacts"/>
 
     <div class="bg-white w-4/5 m-auto rounded shadow-xl my-5 p-5">
       <div class="flex justify-between items-center">
         <div class="flex gap-4">
-          <select @change="onChangeCategoryFilter" class="py-2 px-4 text-2xl outline-none">
+          <select @change="onChangeCategoryFilter" class="py-2 px-4 text-2xl outline-none border rounded-md">
             <option value="">Все товары</option>
             <option v-for="category in categories" :key="category.id" :value="category.slug" class="hover:accent-white hover:text-black">{{ category.name }}</option>
           </select>
@@ -192,7 +214,7 @@ provide('profileDrawerActions', {
           </div>
         </div>
       </div>
-      <ProductList :products="products" />
+      <ProductList :products="products"/>
     </div>
 
     <div>

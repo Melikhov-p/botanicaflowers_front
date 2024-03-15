@@ -20,7 +20,7 @@ const addLike = inject('addLike')
     <img v-if="discount > 0" src="/discount.svg" alt="discount" class="absolute top-7 right-7 w-8"/>
     <img :src="imageUrl" alt="product" class="rounded" />
     <p class="mt-2">{{ name }}</p>
-    <p class="text-rose-400 font-light text-xs hover:text-rose-600 hover:underline w-fit">{{ category.name }}</p>
+    <p class="text-rose-400 font-light text-xs hover:text-rose-600 w-fit">{{ category.name }}</p>
     <div class="flex justify-between mt-5">
       <div class="flex flex-col">
         <span class="font-bold text-rose-400">Цена: </span>

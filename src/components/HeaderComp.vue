@@ -1,6 +1,8 @@
 <script setup>
 const emit = defineEmits(['openDrawer']);
-
+defineProps({
+  openModalContacts: Function
+})
 
 </script>
 
@@ -18,8 +20,8 @@ const emit = defineEmits(['openDrawer']);
 
       <ul class="flex items-center gap-5">
         <li class="flex items-center gap-1 text-zinc-500 hover:text-zinc-800 cursor-pointer">
-          <img alt="heart" src="/heart.svg" />
-          <span>Понравилось</span>
+          <img alt="heart" src="/phone.svg" class="w-6"/>
+          <span @click="openModalContacts">Контакты</span>
         </li>
         <li @click="emit('openDrawer')" class="flex items-center gap-1 text-zinc-500 hover:text-zinc-800 cursor-pointer">
           <img alt="cart" src="/profile.svg" />
