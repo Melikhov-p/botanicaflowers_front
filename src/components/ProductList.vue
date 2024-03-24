@@ -17,7 +17,6 @@ defineProps({
           :discount="product.discount_percent"
           :total_price="product.total_price"
           :is-liked="product.isLiked"
-          :on-click-like="onClickLike"
           />
 
       </div>

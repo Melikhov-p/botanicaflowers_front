@@ -5,10 +5,12 @@ import { inject } from 'vue'
 defineProps({
   liked_products: Array,
   client: Object,
-  login: Function,
-  logout: Function
 })
+
 const addLike = inject('addLike')
+const AuthClient = inject('AuthClient')
+const LogOut = inject('LogOut')
+
 
 </script>
 
@@ -16,12 +18,13 @@ const addLike = inject('addLike')
   <div class="fixed top-0 left-0 h-full w-full bg-black z-10 opacity-70"></div>
   <div class="bg-white w-1/3 h-full fixed right-0 top-0 z-20 p-5">
 
-    <DrawerHeader :client="client" :login="login" :logout="logout" />
+    <DrawerHeader :client="client" :login="AuthClient" :logout="LogOut" />
 
     <div class="flex flex-col mt-10" v-if="client">
       <h2 class="font-bold text-2xl">Вам понравилось: </h2>
       <div class="flex flex-col" v-auto-animate>
-        <svg v-if="liked_products.length === 0" class="w-2/3 h-2/3 self-center mt-16" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
+        <div v-if="liked_products.length === 0" class="self-center mt-16 w-2/3">
+          <svg class="" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
              viewBox="0 0 512 512" xml:space="preserve">
         <ellipse style="fill:#EAEAED;" cx="256" cy="256" rx="256" ry="256" />
                   <path style="fill:#D9D9DD;" d="M511.747,267.09c-4.357,102.202-68.636,188.88-158.599,225.813L256,395.756l7.983-16.252
@@ -35,6 +38,8 @@ const addLike = inject('addLike')
             L238.848,142.991z" />
         </g>
         </svg>
+        <h2 class="font-bold text-2xl text-center mt-5">Тут пусто</h2>
+        </div>
         <div v-else v-for="product in liked_products" :key="product.id" class="flex flex-row mt-2 items-center border rounded">
           <img :src="product.image" alt="product" class="rounded w-32 justify-self-start" />
           <div class="ml-5 flex flex-col w-1/3">

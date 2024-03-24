@@ -1,5 +1,6 @@
 <script setup>
-import { inject } from 'vue'
+import { inject, ref } from 'vue'
+import PreorderModalComp from '@/components/PreorderModalComp.vue'
 
 defineProps({
   id: Number,
@@ -12,9 +13,22 @@ defineProps({
   isLiked: Boolean,
 })
 const addLike = inject('addLike')
+const PreorderModal = ref(false)
+
+const openPreorderModal = () => {
+  PreorderModal.value = true
+}
+
+const closePreorderModal = () => {
+  PreorderModal.value = false
+}
+
 </script>
 
 <template>
+
+  <PreorderModalComp :product_name="name" :product_price="price" :product_id="id" :close-preorder-modal="closePreorderModal" v-if="PreorderModal"/>
+
   <div class="relative flex flex-col bg-white border border-zinc-300 rounded-lg p-5 hover:-translate-y-1.5 hover:shadow-xl transition hover:cursor-pointer hover:scale-105">
     <img :src="isLiked ? '/like-2.svg' : '/like-1.svg'" alt="like-1" @click="addLike(id)" class="absolute top-7 left-7 w-8" />
     <img v-if="discount > 0" src="/discount.svg" alt="discount" class="absolute top-7 right-7 w-8"/>
@@ -33,7 +47,7 @@ const addLike = inject('addLike')
         </div>
       </div>
 
-      <a class="border border-rose-400 rounded py-2 px-4 text-rose-400 hover:bg-rose-400 hover:text-white">Заказать</a>
+      <a class="border border-rose-400 rounded py-2 px-4 text-rose-400 hover:bg-rose-400 hover:text-white" @click="openPreorderModal()">Заказать</a>
     </div>
   </div>
 </template>

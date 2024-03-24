@@ -1,5 +1,5 @@
 <script setup>
-const emit = defineEmits(['openDrawer']);
+const emit = defineEmits(['openDrawer'])
 defineProps({
   openModalContacts: Function
 })
@@ -10,18 +10,28 @@ defineProps({
   <div class="bg-white w-4/5 m-auto rounded shadow-xl mt-10">
     <header class="flex justify-between border-b border-slate-200 p-5">
 
-      <div class="flex items-center gap-2">
-        <img alt="logo" src="/logo.png" class="w-10" />
-        <div>
-          <h2 class="text-xl font-bold">BOTANICA FLOWERS<sup class="font-light text-rose-700 text-xs px-0.5" >beta</sup></h2>
-          <p class="text-slate-300">Цветочная мастерская</p>
+
+        <div class="flex">
+          <router-link to="/">
+          <div class="flex items-center border-r-slate-400 border-r pr-5">
+            <img alt="logo" src="/logo.png" class="w-20" />
+            <div>
+              <h2 class="text-xl font-bold">BOTANICA FLOWERS<sup class="font-light text-rose-700 text-xs px-0.5">beta</sup></h2>
+              <p class="text-slate-300">Цветочная мастерская</p>
+            </div>
+          </div>
+          </router-link>
+          <div class="ml-5 flex flex-col">
+            <p class="text-slate-300">Белгород, Гражданский просп., 47</p>
+            <p class="text-slate-300">Пн-Вс: 9:00-19:00 | Доставка 24/7</p>
+            <p class="text-slate-300">+7 (930) 086-90-08</p>
+          </div>
         </div>
-      </div>
 
       <ul class="flex items-center gap-5">
-        <li class="flex items-center gap-1 text-zinc-500 hover:text-zinc-800 cursor-pointer">
-          <img alt="heart" src="/phone.svg" class="w-6"/>
-          <span @click="openModalContacts">Контакты</span>
+        <li @click="openModalContacts" class="flex items-center gap-1 text-zinc-500 hover:text-zinc-800 cursor-pointer">
+          <img alt="heart" src="/phone.svg" class="w-6" />
+          <span>Контакты</span>
         </li>
         <li @click="emit('openDrawer')" class="flex items-center gap-1 text-zinc-500 hover:text-zinc-800 cursor-pointer">
           <img alt="cart" src="/profile.svg" />
