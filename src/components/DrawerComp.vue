@@ -10,12 +10,12 @@ defineProps({
 const addLike = inject('addLike')
 const AuthClient = inject('AuthClient')
 const LogOut = inject('LogOut')
-
+const { closeDrawer } = inject('profileDrawerActions')
 
 </script>
 
 <template>
-  <div class="fixed top-0 left-0 h-full w-full bg-black z-10 opacity-70"></div>
+  <div class="fixed top-0 left-0 h-full w-full bg-black z-10 opacity-70" @click="closeDrawer()"></div>
   <div class="bg-white w-1/3 h-full fixed right-0 top-0 z-20 p-5">
 
     <DrawerHeader :client="client" :login="AuthClient" :logout="LogOut" />
@@ -40,7 +40,8 @@ const LogOut = inject('LogOut')
         </svg>
         <h2 class="font-bold text-2xl text-center mt-5">Тут пусто</h2>
         </div>
-        <div v-else v-for="product in liked_products" :key="product.id" class="flex flex-row mt-2 items-center border rounded">
+        <div v-else>
+          <div v-for="product in liked_products" :key="product.id" class="flex flex-row mt-2 items-center border rounded">
           <img :src="product.image" alt="product" class="rounded w-32 justify-self-start" />
           <div class="ml-5 flex flex-col w-1/3">
             <span class="text-lg">{{ product.name }}</span>
@@ -53,6 +54,7 @@ const LogOut = inject('LogOut')
             <img :src="product.isLiked ? '/like-2.svg' : '/like-1.svg'" alt="like-1" @click="addLike(product.id)" class="w-10 cursor-pointer mr-5" />
             <a class="border border-rose-400 rounded py-2 px-4 text-rose-400 hover:bg-rose-400 hover:text-white hover:cursor-pointer">Заказать</a>
           </div>
+        </div>
         </div>
       </div>
     </div>

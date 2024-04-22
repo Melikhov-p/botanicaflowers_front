@@ -26,7 +26,7 @@ function copyToClipboard(product_id){
 </script>
 
 <template>
-  <div class="fixed top-0 left-0 h-full w-full bg-black z-10 opacity-40"></div>
+  <div class="fixed top-0 left-0 h-full w-full bg-black z-10 opacity-70" @click="closePreorderModal"></div>
   <div class="bg-white w-1/3 top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 fixed z-20 p-5">
   <div class="bg-white w-1/3 top-0 left-1/2 -translate-x-1/2 fixed z-30 p-5 text-center text-rose-400" v-if="id_copied">Текст скопирован</div>
     <h2 class="text-3xl font-bold border-b text-center pb-5">Заказ</h2>

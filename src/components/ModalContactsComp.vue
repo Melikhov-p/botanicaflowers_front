@@ -5,7 +5,7 @@ defineProps({
 </script>
 
 <template>
-  <div class="fixed top-0 left-0 h-full w-full bg-black z-10 opacity-70"></div>
+  <div class="fixed top-0 left-0 h-full w-full bg-black z-10 opacity-70" @click="closeModalContacts"></div>
   <div class="bg-white w-2/3 top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 h-2/3 fixed z-20 p-5">
     <div class="flex flex-col h-full justify-between">
       <div class="flex justify-between">

@@ -5,10 +5,12 @@ import { onMounted, provide, ref} from 'vue'
 import ModalContactsComp from '@/components/ModalContactsComp.vue'
 import HomePage from '@/pages/HomePage.vue'
 import PreorderModal from '@/components/PreorderModalComp.vue'
+import ManagerDesktopComp from '@/components/ManagerDesktopComp.vue'
 
 
 const DrawerOpen = ref(false)
 const ModalContacts = ref(false)
+const ClientCatched = ref(false)
 
 const closeDrawer = () => {
   DrawerOpen.value = false
@@ -38,6 +40,7 @@ function getClient() {
         console.log(resp.data)
       } else {
         client.value = resp.data[0]
+        ClientCatched.value = true
       }
     }).catch(function(error) {
       if (error.response.status === 401) {
@@ -73,6 +76,7 @@ function AuthClient(phone, password) {
         }
       }).then(resp => {
         client.value = resp.data[0]
+        ClientCatched.value = true
         location.reload()
       })
     }).catch(function(error) {
@@ -105,6 +109,7 @@ provide('AuthClient', AuthClient)
 provide('LogOut', LogOut)
 provide('client', client)
 provide('DrawerOpen', DrawerOpen)
+provide('ClientCatched', ClientCatched)
 </script>
 
 <template>

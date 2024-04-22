@@ -8,12 +8,12 @@ defineProps({
 
 <template>
   <div class="bg-white w-4/5 m-auto rounded shadow-xl mt-10">
-    <header class="flex justify-between border-b border-slate-200 p-5">
+    <header class="flex justify-between border-b border-slate-200 p-5 flex-col sm:flex-row">
 
 
         <div class="flex">
           <router-link to="/">
-          <div class="flex items-center border-r-slate-400 border-r pr-5">
+          <div class="flex items-center border-r-slate-400 border-r lg:pr-5">
             <img alt="logo" src="/logo.png" class="w-20" />
             <div>
               <h2 class="text-xl font-bold">BOTANICA FLOWERS<sup class="font-light text-rose-700 text-xs px-0.5">beta</sup></h2>
@@ -21,7 +21,7 @@ defineProps({
             </div>
           </div>
           </router-link>
-          <div class="ml-5 flex flex-col">
+          <div class="ml-5 flex flex-col sm:visible">
             <p class="text-slate-300">Белгород, Гражданский просп., 47</p>
             <p class="text-slate-300">Пн-Вс: 9:00-19:00 | Доставка 24/7</p>
             <p class="text-slate-300">+7 (930) 086-90-08</p>

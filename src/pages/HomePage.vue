@@ -3,9 +3,11 @@ import ProductList from '@/components/ProductList.vue'
 import { inject, onMounted, provide, reactive, ref, watch } from 'vue'
 import axios from 'axios'
 import DrawerComp from '@/components/DrawerComp.vue'
+import ManagerDesktopComp from '@/components/ManagerDesktopComp.vue'
 
 const client = inject('client')
 const DrawerOpen = inject('DrawerOpen')
+const ClientCatched = inject('ClientCatched')
 
 const products = ref([])
 const filters = reactive({
@@ -36,7 +38,7 @@ const fetchProducts = async () => {  // Запрос всех товаров
     params.category = filters.categoryFilter
   }
   try {
-    const { data } = await axios.get(`http://localhost:8000/api/products`, {
+    const { data } = await axios.get(`http://localhost:8000/api/products/?available=True`, {
       params
     })
 
@@ -95,7 +97,7 @@ const addLike = async (product_id) => {  // Добавление лайка
     console.log(e)
   }
 }
-
+console.log(client)
 onMounted(async () => {  // При монтировании (загрузке страницы)
   await fetchProducts()
   await fetchCategories()
@@ -110,14 +112,19 @@ watch(filters, fetchProducts)  // При изменении фильтров
 <template>
       <DrawerComp v-if="DrawerOpen" :liked_products="products.filter(product => product.isLiked)" :client="client"/>
 
-  <div class="flex justify-between items-center">
-    <div class="flex gap-4">
+
+    <div class="bg-white m-auto rounded shadow-xl my-5 p-5" v-if="ClientCatched && client.is_stuff==='True'">
+        <ManagerDesktopComp/>
+    </div>
+
+  <div class="flex justify-between items-center flex-col sm:flex-row">
+    <div class="flex gap-4 mb-3 sm:mb-0">
       <select @change="onChangeCategoryFilter" class="py-2 px-4 text-2xl outline-none border rounded-md">
         <option value="">Все товары</option>
         <option v-for="category in categories" :key="category.id" :value="category.slug" class="hover:accent-white hover:text-black">{{ category.name }}</option>
       </select>
     </div>
-    <div class="flex gap-4">
+    <div class="flex gap-4 flex-col sm:flex-row">
       <select @change="onChangeSelect" class="py-2 px-4 border rounded-md outline-0">
         <option value="name">По названию</option>
         <option value="-id" selected>По новизне</option>

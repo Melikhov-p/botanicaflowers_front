@@ -12,6 +12,8 @@ const password = ref('')
 
 const AuthClient = inject('AuthClient')
 const LogOut = inject('LogOut')
+
+
 </script>
 
 <template>
@@ -31,7 +33,8 @@ const LogOut = inject('LogOut')
       <div class="flex flex-col items-center" v-if="client">
         <img alt="profile" src="/profile.png" class="w-32 rounded-3xl" />
         <h2 class="font-bold text-2xl">{{ client.first_name }} {{ client.last_name }}</h2>
-        <h2 class="text-slate-400">{{ client.phone }}</h2>
+        <h2 class="text-slate-400 mb-5">{{ client.phone }}</h2>
+        <router-link to="/manager"><a class="text-rose-400 hover:cursor-pointer hover:underline border rounded py-2 px-4 border-rose-400" v-if="client.is_stuff=='True'">Кабинет менеджера</a></router-link>
       </div>
     <div v-else class="flex flex-col">
       <input type="text" class="outline-0 border border-rose-400 rounded mt-2.5 h-10 pl-2" placeholder="Номер телефона" v-model="phone" />
