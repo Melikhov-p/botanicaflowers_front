@@ -8,12 +8,12 @@ defineProps({
 
 <template>
   <div class="bg-white w-4/5 m-auto rounded shadow-xl mt-10">
-    <header class="flex justify-between border-b border-slate-200 p-5 flex-col sm:flex-row">
+    <header class="flex justify-between border-b border-slate-200 p-5 flex-col sm:flex-row items-center gap-5 sm:gap-0">
 
 
-        <div class="flex">
+        <div class="flex flex-col sm:flex-row">
           <router-link to="/">
-          <div class="flex items-center border-r-slate-400 border-r lg:pr-5">
+          <div class="flex items-center sm:border-r-slate-400 sm:border-r lg:pr-5 pb-5 sm:pb-0">
             <img alt="logo" src="/logo.png" class="w-20" />
             <div>
               <h2 class="text-xl font-bold">BOTANICA FLOWERS<sup class="font-light text-rose-700 text-xs px-0.5">beta</sup></h2>

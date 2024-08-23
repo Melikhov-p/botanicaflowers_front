@@ -129,19 +129,19 @@ provide('ClientCatched', ClientCatched)
       </a>
     </div>
 
-    <div class="bg-white w-4/5 m-auto shadow-xl my-5 p-5 flex justify-between items-center">
+    <div class="bg-white w-4/5 m-auto shadow-xl my-5 p-5 flex justify-between items-center text-slate-800 text-xs sm:font-light">
       <div>
-        <p class="text-slate-800 font-light">ИП ФЕДЧЕНКО ЭЛИНА ИГОРЕВНА</p>
-        <p class="text-slate-800 font-light">ОГРНИП 323310000078371</p>
-        <p class="text-slate-800 font-light">ИНН 312342666634</p>
+        <p class="">ИП ФЕДЧЕНКО ЭЛИНА ИГОРЕВНА</p>
+        <p class="">ОГРНИП 323310000078371</p>
+        <p class="">ИНН 312342666634</p>
       </div>
       <div>
-        <p class="font-light text-slate-800">BOTANICA©2024</p>
+        <p class="">BOTANICA©2024</p>
       </div>
       <div>
-        <p class="font-light text-slate-800">+7 (930) 086-90-08</p>
-        <p class="font-light text-slate-800">botanicaflowers.25@yandex.ru</p>
-        <p class="font-light text-slate-800">Гражданский проспект 47, Белгород</p>
+        <p class="">+7 (930) 086-90-08</p>
+        <p class="">botanicaflowers.25@yandex.ru</p>
+        <p class="">Гражданский проспект 47, Белгород</p>
       </div>
     </div>
   </div>
